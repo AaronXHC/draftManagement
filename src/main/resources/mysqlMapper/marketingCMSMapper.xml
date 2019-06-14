@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?><!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.xsysc.draft.dao.marketingCMSMapper">
+
+
+<select id="selectArticleInfo" parameterType="java.util.Map" resultType="java.util.Map">
+select t.ID,
+       t.TITLE,
+       t.AUTHOR,
+       date_format(t.publish_time,'%Y-%m-%d %H:%i') PUBLISH_TIME,
+       ifnull(t.img_url,'/img/paddingimg.png') IMG_URL,
+       t.SUMMARY,
+       t.KEYWORD,
+       t.CLICK_TIMES,
+       t.SOURCE_URL,
+       t.SOURCE_WEBSITE
+    from ARTICLE_INFO_EEO t
+    where t.deletion_flag = 0
+    and exists(select 1 from ARTICLE_CONTENT_EEO where id = t.id)
+    <if test="CJSJS != null and CJSJS != ''"> <![CDATA[ and t.publish_time >= STR_TO_DATE(#{CJSJS,jdbcType=VARCHAR},'%Y-%m-%d') ]]></if>
+    <if test="CJSJE != null and CJSJE != ''"> <![CDATA[ and t.publish_time < STR_TO_DATE(#{CJSJE,jdbcType=VARCHAR},'%Y-%m-%d')+1 ]]></if>
+    <if test="KEYWORD != null and KEYWORD != ''">  and t.keyword like concat('%', #{KEYWORD,jdbcType=VARCHAR}, '%')    </if>
+    <if test="ID != null and ID != ''">  and t.id = #{ID,jdbcType=VARCHAR}</if>
+</select>
+
+    <select id="selectArticleContent" parameterType="java.util.Map" resultType="java.util.Map">
+select  r.ID,r.phrase_num NUM, r.phrase_content CONTENT
+  from ARTICLE_CONTENT_EEO r
+ where id = #{ID,jdbcType=VARCHAR}
+ order by r.phrase_num
+</select>
+
+    <insert id="insertDraftRecord" parameterType="java.util.Map">
+        insert into DRAFT_RECORD (id,content_use,use_time,username,userid)
+        values (#{ID,jdbcType=VARCHAR},
+        #{CONTENT_USE,jdbcType=VARCHAR},
+        STR_TO_DATE(#{USE_TIME},'%Y-%m-%d'),
+        #{USERNAME,jdbcType=VARCHAR},
+        #{USERID,jdbcType=VARCHAR})
+    </insert>
+
+
+    <select id="selectDraftRecord" parameterType="java.util.Map" resultType="java.util.Map">
+        select ID,
+        CONTENT_USE,
+        date_format(use_time,'%Y-%m-%d') USE_TIME,
+        USERNAME,
+        USERID from  DRAFT_RECORD
+        where id = #{ID,jdbcType=VARCHAR}
+    </select>
+
+
+
+
+
+</mapper>

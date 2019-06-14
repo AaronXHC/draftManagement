@@ -1,0 +1,125 @@
+.layout {
+    padding: 0 .92rem;
+}
+
+.main {
+    background-color: #d8effc;
+    border: 1px solid #797979;
+    padding: .16rem .3rem .3rem;
+    font-size: .16rem;
+}
+
+.form-wrap {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+}
+
+/* 左侧 */
+.form-l {
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    margin-right: .4rem;
+}
+
+.form-l .group {
+    margin-bottom: .26rem;
+}
+
+.form-l .control {
+    width: 100%;
+    padding: .11rem .12rem;
+    background-color: #fff;
+    font-size: .16rem;
+}
+
+.form-l .btn-wrap {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+.form-l .btn-wrap .btn {
+    padding: 0 .28rem;
+    font-size: .16rem;
+    background-color: transparent;
+}
+
+.form-l .btn-wrap .btn-upload {
+    height: .36rem;
+    border: 1px solid #ccc;
+    border-radius: .06rem;
+    background-color: #fff;
+    line-height: .34rem;
+}
+
+.form-l .btn-wrap .btn-remove {
+    font-size: .14rem;
+}
+
+/* 右侧 */
+.form-r {
+    width: 1.7rem;
+}
+
+.form-r .code-wrap {
+    height: 1.7rem;
+    border: 1px solid #797979;
+    background-color: #fff;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    color: #999999;
+    padding: .12rem;
+    margin-bottom: .26rem;
+    position: relative;
+}
+
+.form-r .code-wrap .qrcode {
+    width: 100%;
+    height: 100%;
+}
+
+.form-r .code-wrap .logo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    width: .38rem;
+    height: .38rem;
+    border: 1px solid #fff;
+}
+
+.form-r .btn-wrap .btn {
+    display: block;
+    width: 100%;
+    height: .38rem;
+    border: 1px solid #797979;
+    border-radius: .06rem;
+    background-color: #0082f0;
+    line-height: .36rem;
+    color: #fff;
+    font-size: .16rem;
+    text-align: center;
+}

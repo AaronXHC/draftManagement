@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?><!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.htjs.neo4j.tax.dao.marketingCMSMapper">
+
+
+    <resultMap type="java.util.Map" id="contentMap">
+        <result property="id" column="id" />
+        <result property="num" column="num" />
+        <result property="content" column="content" jdbcType="CLOB"
+                javaType = "java.lang.String"  typeHandler ="org.apache.ibatis.type.ClobTypeHandler"/>
+    </resultMap>
+
+
+<select id="selectArticleInfo" parameterType="java.util.Map" resultType="java.util.Map">
+select RAWTOHEX(t.id) id,
+       t.title,
+       t.author,
+       to_char(t.publish_time,'yyyy-mm-dd hh24:mi') publish_time,
+       nvl(t.img_url,'/img/paddingImg.png') img_url,
+       t.summary,
+       t.keyword,
+       t.click_times,
+       t.source_url,
+       t.source_website
+    from article_info_eeo t
+    where t.deletion_flag = 0
+    and exists(select 1 from article_content_eeo where id = t.id)
+    <if test="CJSJS != null and CJSJS != ''"> <![CDATA[ and t.publish_time >= to_date(#{CJSJS,jdbcType=VARCHAR},'yyyy-MM-dd') ]]></if>
+    <if test="CJSJE != null and CJSJE != ''"> <![CDATA[ and t.publish_time < to_date(#{CJSJE,jdbcType=VARCHAR},'yyyy-MM-dd')+1 ]]></if>
+    <if test="KEYWORD != null and KEYWORD != ''">  and t.keyword like  '%'||#{KEYWORD,jdbcType=VARCHAR}||'%'</if>
+    <if test="ID != null and ID != ''">  and t.id = #{ID,jdbcType=VARCHAR}</if>
+</select>
+
+    <select id="selectArticleContent" parameterType="java.util.Map" resultMap="contentMap">
+select RAWTOHEX(r.id) id,r.phrase_num num, r.phrase_content content
+  from article_content_eeo r
+ where id = #{ID,jdbcType=VARCHAR}
+ order by r.phrase_num
+</select>
+
+
+
+
+
+</mapper>

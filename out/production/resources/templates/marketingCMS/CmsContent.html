@@ -1,0 +1,124 @@
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>稿件内容</title>
+    <link rel="stylesheet" href="/scripts/lib/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/scripts/lib/bootstrap-datetimepicker/bootstrap-datetimepicker.min.css">
+    <style type="text/css">
+        .a {
+            font-family: "Times New Roman";
+            font-size: 22px;
+            font-style: normal;
+            line-height: 40px;
+            font-weight: bolder;
+            font-variant: normal;
+            color: #000;
+            text-align: center;
+        }
+
+        .b {
+            font-size: 18px;
+            font-style: normal;
+            font-weight: normal;
+            font-variant: normal;
+            color: #CCC;
+        }
+
+        .c {
+            font-family: "Times New Roman";
+            font-style: normal;
+            line-height: normal;
+            font-variant: normal;
+        }
+
+        .d {
+            font-size: 18px;
+            font-style: normal;
+            line-height: normal;
+            font-weight: normal;
+            font-variant: normal;
+            color: #000;
+        }
+
+        .e {
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        p {
+            text-indent: 2em;
+        }
+
+        .title {
+            padding: 0 40px;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .form {
+            padding: 0 40px;
+            display: flex;
+            align-items: center;
+        }
+
+        .control {
+            width: 190px;
+            height: 36px;
+            line-height: 36px;
+            padding: 0 10px;
+            margin-right: 40px;
+            color: #666;
+            border: 1px solid #999;
+            background-color: #fff;
+        }
+
+        .form .btn {
+            padding-top: 7px;
+            padding-bottom: 7px;
+            border-color: #999;
+            color: #666;
+        }
+    </style>
+</head>
+
+<body>
+
+<p align="center"><span class="a" id="title"></span></p>
+<table align="center">
+    <tr>
+        <td height="17"><span class="b" id = "publish_time"></span></td>
+        <td><span class="b" id = "author"></span></td>
+    </tr>
+</table>
+<hr />
+<div class="title" id="record"></div>
+<div class="form" id="insertRecord">
+    <!--<select name="sel" class="c control">
+        <option value="1">无</option>
+        <option value="2">管理版</option>
+        <option value="3">营销版</option>
+        <option value="4">微信</option>
+        <option value="4">网站</option>
+        <option value="4">外围平台</option>
+    </select>
+    <input class="form-date control" name="date" readonly type="text" placeholder=" 年-月-日">
+    <button class="btn btn-default" onclick="insertUsageRecord();">添加使用记录</button>-->
+</div>
+</em>
+<hr />
+<p><span class="c"> 摘要:</span><span class="d" id = "summary"></span></p>
+<div id="content">
+
+</div>
+<script src="/scripts/lib/jquery/jquery.min.js"></script>
+<script src="/scripts/base/jquery.cookie.js" type="text/javascript" charset="utf-8"></script>
+<script src="/scripts/lib/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js"></script>
+<script src="/scripts/lib/bootstrap-datetimepicker/bootstrap-datetimepicker.zh-CN.js"></script>
+<script src="/scripts/cms/CmsContent.js"></script>
+<script src="/scripts/common.js" type="text/javascript" charset="utf-8"></script>
+</body>
+
+</html>

@@ -1,0 +1,253 @@
+﻿@charset "UTF-8";
+/****************** reset css *********************/
+
+html,
+body,
+ul,
+li,
+ol,
+dl,
+dd,
+dt,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+form,
+fieldset,
+legend,
+img {
+    margin: 0;
+    padding: 0;
+}
+
+* {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+fieldset,
+img,
+input,
+button {
+    border: 0 none;
+    padding: 0;
+    margin: 0;
+    outline-style: none;
+}
+
+button {
+    cursor: pointer;
+}
+
+ul,
+ol {
+    list-style: none;
+}
+
+input {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+select,
+input {
+    vertical-align: middle;
+}
+
+select,
+input,
+textarea {
+    margin: 0;
+}
+
+textarea {
+    resize: none;
+}
+
+img {
+    border: 0;
+    vertical-align: middle;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+.clearfix:before,
+.clearfix:after {
+    content: "";
+    display: table;
+}
+
+.clearfix:after {
+    clear: both;
+}
+
+.clearfix {
+    *zoom: 1;
+}
+
+a {
+    text-decoration: none;
+    color: #000;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    text-decoration: none;
+    font-weight: normal;
+    font-size: 100%;
+}
+
+s,
+i,
+em {
+    font-style: normal;
+    text-decoration: none;
+}
+
+body {
+    font-family: "Microsoft YaHei", "微软雅黑", "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", Arial, sans-serif;
+    font-size: .28rem;
+    line-height: 1.42857143;
+    color: #000;
+    background-color: #fff;
+}
+
+/******************* common css ********************/
+
+.fl {
+    float: left;
+}
+
+.fr {
+    float: right;
+}
+
+.tl {
+    text-align: left;
+}
+
+.tc {
+    text-align: center;
+}
+
+.tr {
+    text-align: right;
+}
+
+.hide {
+    display: none;
+}
+
+/* 可点击 */
+.clickable {
+    cursor: pointer;
+}
+
+/* 省略号 */
+
+.ell {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    word-break: break-all;
+    word-wrap: break-word;
+}
+
+.ell-two {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    word-break: break-all;
+    word-wrap: break-word;
+}
+
+/* 上边框 下边框 */
+.bdt,
+.bdb {
+    position: relative;
+}
+
+.bdt::before,
+.bdb::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background-color: #ccc;
+}
+
+.bdt::before {
+    top: 0;
+}
+
+.bdb::after {
+    bottom: 0
+}
+
+/* 右边框 */
+.bdr {
+    position: relative;
+}
+
+.bdr::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 1px;
+    height: 100%;
+    background-color: #ccc;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+/* 主体容器 */
+
+.layout {
+    min-width: 320px;
+    margin: 0 auto;
+}
+
+/* 表单样式 */
+.group {
+    margin-bottom: .24rem;
+    display: flex;
+    align-items: center;
+}
+
+.control {
+    padding: .11rem .12rem;
+    background-color: #fff;
+    font-size: .16rem;
+}
+
+.btn {
+    height: .44rem;
+    line-height: .4rem;
+    text-align: center;
+    font-size: .16rem;
+    border-radius: .06rem;
+    background-color: #fff;
+}
+
+.btn-blue {
+    border: 1px solid #aaa;
+    color: #fff;
+    background-color: #0082f0;
+}

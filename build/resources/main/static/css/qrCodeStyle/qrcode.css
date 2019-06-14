@@ -1,0 +1,94 @@
+html,
+body {
+    height: 100%;
+}
+
+/* 主体容器 */
+.layout {
+    background-color: #ace0f9;
+    padding: 0 .12rem;
+    min-height: 100%;
+}
+
+/* 头部区域 */
+.header {
+    height: 2.12rem;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+.header .title {
+    font-size: .48rem;
+    color: #2c256b;
+    margin-bottom: .3rem;
+}
+
+.header .link {
+    display: block;
+    height: .4rem;
+    padding: 0 .34rem;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    line-height: .36rem;
+    border-radius: .06rem;
+    font-size: .2rem;
+}
+
+/* 列表 */
+.item {
+    padding-left: .12rem;
+    background-color: #fff;
+}
+
+/* 单品 */
+.con {
+    width: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    padding: .16rem 0 .22rem;
+    color: #949494;
+    border-bottom: 1px solid #ccc;
+}
+
+.con-l {
+    width: 80%;
+}
+
+.con-l .title {
+    font-size: .32rem;
+    color: #000;
+}
+
+.con-r {
+    padding: 0.26rem;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+}
+
+.con-r img {
+    width: .46rem;
+    height: .46rem;
+}

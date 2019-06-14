@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" ?><!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.htjs.neo4j.tax.dao.CrawlerPipeLineMapper">
+
+
+
+    <insert id="insertARTICLE_INFO_EEO" parameterType="java.util.List" useGeneratedKeys="false">
+     insert ARTICLE_INFO_EEO (ID,DOWNLOAD_TIME,SOURCE_URL,TITLE,SUMMARY,SOURCE_WEBSITE,KEYWORD,PUBLISH_TIME,IMG_URL,AUTHOR)
+        <foreach item="article" index="index" collection="list" separator=" union ">
+
+            SELECT replace(uuid(),'-',''),
+            current_timestamp(),
+            #{article.source_url},
+            #{article.title},
+            #{article.summary},
+            #{article.source_website}
+            <choose>
+                <when test="article.keyword != null and article.keyword != ''">
+                    ,#{article.keyword}
+                </when>
+                <otherwise>
+                    ,null
+                </otherwise>
+            </choose>
+            <choose>
+                <when test="article.publish_time != null and article.publish_time != ''">
+                    ,STR_TO_DATE(#{article.publish_time},'%Y-%m-%d %H:%i')
+                </when>
+                <otherwise>
+                    ,null
+                </otherwise>
+            </choose>
+            <choose>
+                <when test="article.imgUrl != null and article.imgUrl != ''">
+                    ,#{article.imgUrl}
+                </when>
+                <otherwise>
+                    ,null
+                </otherwise>
+            </choose>
+            <choose>
+                <when test="article.author != null and article.author != ''">
+                    ,#{article.author}
+                </when>
+                <otherwise>
+                    ,null
+                </otherwise>
+            </choose>
+            where not exists(select 1 from ARTICLE_INFO_EEO where source_url = #{article.source_url})
+
+        </foreach>
+    </insert>
+
+
+    <update id="updateARTICLE_INFO_EEO" parameterType="java.util.Map">
+         update ARTICLE_INFO_EEO t
+         <set>
+             <if test="keyword != null and keyword != ''" >
+                 t.keyword=#{keyword,jdbcType=VARCHAR},
+             </if>
+             <if test="author != null and author != ''" >
+                 t.author=#{author,jdbcType=VARCHAR},
+             </if>
+             <if test="publish_time != null and publish_time != ''" >
+                 t.publish_time=STR_TO_DATE(#{publish_time,jdbcType=VARCHAR},'%Y-%m-%d %H:%i'),
+             </if>
+             <if test="imgUrl != null and imgUrl != ''">
+                 t.img_url=#{imgUrl,jdbcType=VARCHAR},
+             </if>
+         </set>
+         where t.SOURCE_URL=#{SOURCE_URL,jdbcType=VARCHAR}
+    </update>
+
+
+    <!--<insert id="insertARTICLE_CONTENT_EEO"  parameterType="java.util.List" useGeneratedKeys="false">
+        insert into ARTICLE_CONTENT_EEO (ID,PHRASE_NUM,PHRASE_CONTENT)
+        with uuid as
+        (select id from ARTICLE_INFO_EEO where SOURCE_URL = #{list[0].SOURCE_URL,jdbcType=VARCHAR})
+        select * from (
+        <foreach item="item" index="index" collection="list" separator=" union all ">
+            select (select id from uuid),
+            #{item.phraseNum,jdbcType=VARCHAR},
+            #{item.phrase,jdbcType=CLOB}
+            from dual
+        </foreach>
+        )
+    </insert>-->
+
+    <insert id="insertARTICLE_CONTENT_EEO"  parameterType="java.util.List" useGeneratedKeys="false">
+        INSERT INTO ARTICLE_CONTENT_EEO (id,phrase_num,phrase_content)
+        <foreach item="item" index="index" collection="list" separator=" union ">
+
+            select
+            (select id from ARTICLE_INFO_EEO where
+            source_url = #{item.SOURCE_URL,jdbcType=VARCHAR}),
+            #{item.phraseNum,jdbcType=INTEGER},
+            #{item.phrase,jdbcType=VARCHAR} from dual
+            where exists(select 1 from ARTICLE_INFO_EEO where source_url = #{item.SOURCE_URL})
+
+
+        </foreach>
+
+    </insert>
+
+    <!--<insert id="insertARTICLE_INFO_LINKSHOP" parameterType="java.util.List" useGeneratedKeys="false">
+        insert all
+        <foreach item="article" index="index" collection="list" separator=" ">
+            into ARTICLE_INFO_EEO (
+            SOURCE_URL,TITLE,KEYWORD,SUMMARY,PUBLISH_TIME
+            <isNotEmpty prepend="," property="article.imgUrl">
+                IMG_URL
+            </isNotEmpty>
+            ) values(
+            #{article.source_url},
+            #{article.title},
+            #{article.keyword},
+            #{article.summary},
+            to_date(#{article.publish_time},'yyyy-MM-dd')
+            <isNotEmpty prepend="," property="article.imgUrl">
+                #{article.imgUrl}
+            </isNotEmpty>
+            )
+        </foreach>
+        SELECT 1 FROM DUAL
+    </insert>
+
+    <update id="updateARTICLE_INFO_LINKSHOP" parameterType="java.util.Map">
+         update ARTICLE_INFO_EEO t set
+         t.author=#{author,jdbcType=VARCHAR}
+         where t.SOURCE_URL=#{SOURCE_URL,jdbcType=VARCHAR}
+    </update>-->
+
+
+
+
+
+
+
+
+</mapper>

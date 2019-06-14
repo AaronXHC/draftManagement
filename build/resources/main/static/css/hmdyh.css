@@ -1,0 +1,16 @@
+.cont_100{width:100%!important;}
+.inline_b{display:inline-block!important;margin:0 10px;}
+.inline_b input{width:100px!important;cursor:pointer;margin-bottom:26px!important;height:38px!important;}
+.border_1{border:1px solid #1a56a8;}
+.select_company input{width:200px!important;}
+.ztqy>span{width:auto!important;}
+.select_company{width:auto!important;}
+.info_left ul li{margin-right:16px;}
+.select_company select{width:200px!important;border:solid 1px #d8d8d8;height:38px;}
+.info_right{text-align: right;}
+.list_box{max-height:370px;overflow-y: hidden;overflow-x:auto;border:none;margin-bottom:30px;}
+.list_box table tr td,.list_box table tr th{border-right: 1px solid #d8d8d8;overflow:hidden;text-overflow:ellipsis;white-space: nowrap;padding:0 5px;}
+.list_box table tbody{overflow-x:hidden;display:block;height:304px; overflow-y:scroll;}
+.list_box table thead, tbody tr {display:table;width:100%;table-layout:fixed;}
+.list_box table thead {width: calc( 100% - 16.5px)}
+.layui-layer-loading .layui-layer-content{margin:0 auto;}

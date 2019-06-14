@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8" ?><!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.xsysc.draft.dao.draftMapper">
+
+
+<select id="selectDraftInfo" parameterType="java.util.Map" resultType="java.util.Map">
+select t.ID,
+       t.TITLE,
+       t.AUTHOR,
+       date_format(t.publish_time,'%Y-%m-%d %H:%i') PUBLISH_TIME,
+       ifnull(t.img_url,'/img/paddingimg.png') IMG_URL,
+       ifnull(t.SUMMARY,'') SUMMARY,
+       ifnull(t.KEYWORD,'') KEYWORD,
+       t.CLICK_TIMES,
+       t.USERID,
+       t.MODIFICATION_FLAG,
+       t.MODIFIED_STAMP,
+       t.SOURCE_WEBSITE
+    from DRAFT_INFO t
+    where t.deletion_flag = 0
+    <choose>
+        <when test="MODIFICATION_FLAG != null and MODIFICATION_FLAG != ''">
+            and t.modification_flag = 1
+            and t.modified_stamp = #{MODIFIED_STAMP,jdbcType=VARCHAR}
+        </when>
+        <otherwise>
+            and t.modification_flag = 0
+        </otherwise>
+    </choose>
+    and exists(select 1 from DRAFT_CONTENT where id = t.id)
+    <if test="CJSJS != null and CJSJS != ''"> <![CDATA[ and t.publish_time >= STR_TO_DATE(#{CJSJS,jdbcType=VARCHAR},'%Y-%m-%d') ]]></if>
+    <if test="CJSJE != null and CJSJE != ''"> <![CDATA[ and t.publish_time < STR_TO_DATE(#{CJSJE,jdbcType=VARCHAR},'%Y-%m-%d')+1 ]]></if>
+    <if test="KEYWORD != null and KEYWORD != ''">  and t.keyword like concat('%', #{KEYWORD,jdbcType=VARCHAR}, '%')    </if>
+    <if test="ID != null and ID != ''">  and t.id = #{ID,jdbcType=VARCHAR}</if>
+</select>
+
+    <select id="selectDraftContent" parameterType="java.util.Map" resultType="java.util.Map">
+select  r.ID,r.phrase_num NUM, r.phrase_content CONTENT,r.MODIFICATION_FLAG,r.MODIFIED_STAMP
+  from DRAFT_CONTENT r
+ where id = #{ID,jdbcType=VARCHAR}
+        <choose>
+            <when test="MODIFICATION_FLAG != null and MODIFICATION_FLAG != ''">
+                and r.modification_flag = 1
+                and r.modified_stamp = #{MODIFIED_STAMP,jdbcType=VARCHAR}
+            </when>
+            <otherwise>
+                and r.modification_flag = 0
+            </otherwise>
+        </choose>
+ order by r.phrase_num
+</select>
+
+
+    <insert id="insertDRAFT_INFO" parameterType="java.util.Map" useGeneratedKeys="false">
+        INSERT INTO DRAFT_INFO  (id,title,author,publish_time,img_url,summary,keyword,source_website,userid) values (
+        #{ID,jdbcType=VARCHAR},
+        #{TITLE,jdbcType=VARCHAR},
+        #{AUTHOR,jdbcType=VARCHAR},
+        current_timestamp(),
+        <choose>
+            <when test="IMG_URL != null and IMG_URL != ''">
+                #{IMG_URL,jdbcType=VARCHAR},
+            </when>
+            <otherwise>
+                null,
+            </otherwise>
+        </choose>
+        <choose>
+            <when test="SUMMARY != null and SUMMARY != ''">
+                #{SUMMARY,jdbcType=VARCHAR},
+            </when>
+            <otherwise>
+                null,
+            </otherwise>
+        </choose>
+        <choose>
+            <when test="KEYWORD != null and KEYWORD != ''">
+                #{KEYWORD,jdbcType=VARCHAR},
+            </when>
+            <otherwise>
+                null,
+            </otherwise>
+        </choose>
+        #{SOURCE_WEBSITE,jdbcType=VARCHAR},
+        #{USERID,jdbcType=VARCHAR})
+    </insert>
+
+
+    <update id="updateDRAFT_INFO" parameterType="java.util.Map">
+        update DRAFT_INFO t
+        <set>
+            <if test="keyword != null and keyword != ''" >
+                t.keyword=#{keyword,jdbcType=VARCHAR},
+            </if>
+            <if test="author != null and author != ''" >
+                t.author=#{author,jdbcType=VARCHAR},
+            </if>
+            <if test="publish_time != null and publish_time != ''" >
+                t.publish_time=STR_TO_DATE(#{publish_time,jdbcType=VARCHAR},'%Y-%m-%d %H:%i'),
+            </if>
+            <if test="imgUrl != null and imgUrl != ''">
+                t.img_url=#{imgUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="MODIFICATION_FLAG != null and MODIFICATION_FLAG != ''">
+                t.modification_flag=#{MODIFICATION_FLAG,jdbcType=INTEGER},
+            </if>
+            <if test="MODIFIED_STAMP != null and MODIFIED_STAMP != ''">
+                t.modified_stamp=#{MODIFIED_STAMP,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where t.id=#{ID,jdbcType=VARCHAR}
+        and t.modification_flag = 0
+    </update>
+
+
+    <insert id="insertDRAFT_CONTENT"  parameterType="java.util.List" useGeneratedKeys="false">
+        INSERT INTO DRAFT_CONTENT (id,phrase_num,phrase_content)
+        <foreach item="item" index="index" collection="list" separator=" union ">
+
+            select
+            #{item.ID,jdbcType=INTEGER},
+            #{item.NUM,jdbcType=INTEGER},
+            #{item.CONTENT,jdbcType=VARCHAR} from dual
+            where exists(select 1 from DRAFT_INFO where id = #{item.ID})
+
+
+        </foreach>
+
+    </insert>
+
+
+    <insert id="insertModificationRecord" parameterType="java.util.Map" >
+        insert into MODIFICATION_RECORD (id,modified_stamp,username,userid,modified_time) values
+        (
+        #{ID,jdbcType=VARCHAR},
+        #{MODIFIED_STAMP,jdbcType=VARCHAR},
+        #{USERNAME,jdbcType=VARCHAR},
+        #{USERID,jdbcType=VARCHAR},
+        current_timestamp()
+        )
+    </insert>
+
+    <select id="selectModificationRecord" parameterType="java.util.Map" resultType="java.util.Map">
+       select ID,
+       MODIFIED_STAMP,
+       USERNAME,
+       USERID,
+       date_format(MODIFIED_TIME,'%Y-%m-%d %H:%i') MODIFIED_TIME
+       from MODIFICATION_RECORD
+       where id = #{ID,jdbcType=VARCHAR}
+        <if test="MODIFIED_STAMP != null and MODIFIED_STAMP != ''" >
+            and modified_stamp = #{MODIFIED_STAMP,jdbcType=VARCHAR},
+        </if>
+    </select>
+
+
+    <update id="updateDRAFT_CONTENT" parameterType="java.util.Map">
+        update DRAFT_CONTENT t
+        <set>
+            <if test="MODIFICATION_FLAG != null and MODIFICATION_FLAG != ''">
+                t.modification_flag=#{MODIFICATION_FLAG,jdbcType=INTEGER},
+            </if>
+            <if test="MODIFIED_STAMP != null and MODIFIED_STAMP != ''">
+                t.modified_stamp=#{MODIFIED_STAMP,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where t.id=#{ID,jdbcType=VARCHAR}
+        and t.modification_flag = 0
+    </update>
+
+
+
+
+
+</mapper>

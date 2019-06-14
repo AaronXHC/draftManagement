@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html >
+	<head>
+		<meta charset="UTF-8">
+		<title>二维码管理</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="/css/cmsStyle/mui.min.css" rel="stylesheet" type="text/css" />
+		<link rel="stylesheet" type="text/css" href="/css/style.css"/>
+		<link href="/scripts/My97DatePicker/skin/WdatePicker.css" rel="stylesheet" type="text/css" />
+		<link href="/css/cmsStyle/list-to-detail.css" rel="stylesheet" type="text/css" />
+		<script src="/scripts/cms/mui.min.js" type="text/javascript"></script>
+		<script src="/scripts/cms/vue.min.js" type="text/javascript"></script>
+		<script type="text/javascript" src="/scripts/My97DatePicker/WdatePicker.js"></script>
+		<script type="text/javascript" src="/scripts/jquery-1.11.2.js"></script>
+		<script src="/scripts/jquery.twbsPagination.min.js" type="text/javascript"></script>
+		<script type="text/javascript" src="/scripts/query.js"></script>
+		<script src="/scripts/base/jquery.cookie.js" type="text/javascript" charset="utf-8"></script>
+		<script src="/scripts/common.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+
+			function encode() {
+				var data = new FormData(document.getElementById("fileUploadForm"));
+				$.ajax({
+					type: "POST",
+					enctype: 'multipart/form-data',
+					url: "/qr/encode",
+					data: data,
+					//http://api.jquery.com/jQuery.ajax/
+					//https://developer.mozilla.org/en-US/docs/Web/API/FormData/Using_FormData_Objects
+					processData: false, //prevent jQuery from automatically transforming the data into a query string
+					contentType: false,
+					cache: false,
+					success: function (result) {
+						$('#previewImg').attr('src', 'data:image/jpg;base64,' + result);
+					}
+				});
+			}
+
+			function onSave(){
+				var src = $("#previewImg").attr("src")
+				$.ajax({
+					type: "post",
+					url: "/qr/onSave",
+					data: {
+						src:src
+					},
+					success: function (result) {
+						alert("保存成功！");
+					}
+				});
+			}
+
+			mui.init();
+
+			function getDefaultData() {
+				return {
+					cover: '',
+					title: '',
+					author: '',
+					time: '',
+					content: ''
+				}
+			}
+
+			var vm = new Vue({
+				el: '.mui-content',
+				data: getDefaultData(),
+				methods: {
+					resetData: function() {//重置数据
+						Object.assign(this.$data, getDefaultData());
+					}
+				}
+			});
+
+			//监听自定义事件，获取新闻详情
+			document.addEventListener('get_detail', function(event) {
+				var guid = event.detail.guid;
+				if(!guid) {
+					return;
+				}
+
+				//前页传入的数据，直接渲染，无需等待ajax请求详情后
+				vm.cover = event.detail.cover;
+				vm.title = event.detail.title;
+				vm.author = event.detail.author;
+				vm.time = event.detail.time;
+				//向服务端请求文章详情内容
+				mui.ajax('http://spider.dcloud.net.cn/api/news/36kr/' + guid, {
+					type:'GET',
+					dataType: 'json', //服务器返回json格式数据
+					timeout: 15000, //15秒超时
+					success: function(rsp) {
+						vm.content = rsp.content;
+					},
+					error: function(xhr, type, errorThrown) {
+						mui.toast('获取文章内容失败');
+						//TODO 此处可以向服务端告警
+					}
+				});
+			});
+
+			//重写返回逻辑
+			mui.back = function() {
+				plus.webview.currentWebview().hide("auto", 300);
+			}
+
+			//窗口隐藏时，重置页面数据
+			mui.plusReady(function () {
+				var self = plus.webview.currentWebview();
+				self.addEventListener("hide",function (e) {
+					window.scrollTo(0, 0);
+					vm.resetData();
+				},false);
+			})
+
+		</script>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <h1 class="mui-title">二维码管理</h1>
+		</header>
+<div class="mui-content">
+	<div>
+	<ul style="margin-left: 10px;margin-top: 5px">
+
+		<form method="POST" enctype="multipart/form-data" id="fileUploadForm" >
+		<p>
+		  <input type="text" id="content" name="content" style="width: 40%"/>
+	  </p>
+		<p>
+			<input type="file" id="logo" name="logo" style="width: 40%"/>
+		</p>
+			<p>
+				<input type="button" value="生成二维码" onclick="encode();"></input>
+			</p>
+			<p>
+				<input type="button" value="保存" onclick="onSave();"></input>
+			</p>
+		</form>
+	</ul>
+		<img src="" id = "previewImg"/>
+</div>
+</div>
+
+
+	</body>
+
+</html>

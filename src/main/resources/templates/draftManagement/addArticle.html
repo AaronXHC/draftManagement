@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>添加文章</title>
+    <script src="/scripts/draft/rem.js"></script>
+    <script src="/scripts/common.js" type="text/javascript" charset="utf-8"></script>
+    <link rel="stylesheet" href="/css/draftStyle/base.css">
+    <link rel="stylesheet" href="/css/draftStyle/addArticle.css">
+</head>
+
+<body>
+    <form class="form">
+        <div class="form-input">
+        <input class="control" type="text" id="title" placeholder="请输入文章标题（5-30个字）">
+        </div>
+        <div class="form-input">
+            <input class="control"  type="text" id="summary" placeholder="选填导读内容（200个字以内）">
+        </div>
+        <div class="form-input" >
+            <input class="control"  type="text" id="keyword" placeholder="选填关键字，以空格分隔">
+        </div>
+        <div class="editor-wrap">
+        <textarea id="editor" style="display: none;"></textarea>
+        </div>
+        <div class="form-input">
+        <button class="btn  btn-blue btn-publish" id="publish" type="button" onclick="saveDraft();">发布</button>
+        </div>
+    </form>
+    <script src="/scripts/draft/lib/jquery/jquery.min.js"></script>
+    <script src="/scripts/base/jquery.cookie.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/scripts/draft/lib/ckeditor/ckeditor.js"></script>
+    <script src="/scripts/draft/addArticle.js"></script>
+</body>
+
+</html>

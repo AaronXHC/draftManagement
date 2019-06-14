@@ -1,0 +1,119 @@
+html,
+body {
+    height: 100%;
+}
+
+/* 主体容器 */
+.layout {
+    background: url(/img/bg.png) no-repeat center top;
+    background-size: 100% 100%;
+    padding: 0 .12rem;
+    min-height: 100%;
+}
+
+/* 头部区域 */
+.header {
+    padding: .5rem 0;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+.header .title {
+    margin-bottom: .4rem;
+}
+
+.header .title img {
+    width: 4.37rem;
+    height: .88rem;
+}
+
+.header .form {
+    width: 100%;
+    padding: 0 1.3rem;
+}
+
+.header .form .control {
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    margin-right: .24rem;
+}
+
+.header .form-input {
+    flex: 1;
+    display: flex;
+}
+
+.header .form-input .control {
+    width: 50%;
+}
+
+.header .btn {
+    padding: 0 .24rem;
+    border: 1px solid #ccc;
+}
+
+.header .btn-blue:hover {
+    color: #fff;
+}
+
+/* 列表 */
+.item {
+    background-color: #fff;
+}
+
+/* 单品 */
+.con {
+    width: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    padding: .16rem 0 .22rem;
+    color: #949494;
+    border-bottom: 1px solid #ccc;
+}
+
+.con:hover {
+    color: #949494;
+}
+
+.con-l {
+    width: 20%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+.con-l img {
+    width: 1rem;
+    height: 1rem;
+}
+
+.con-r {
+    width: 80%;
+}
+
+.con-r .title {
+    font-size: .32rem;
+    color: #000;
+}

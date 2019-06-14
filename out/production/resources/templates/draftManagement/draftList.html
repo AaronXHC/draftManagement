@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>稿件列表</title>
+    <script src="/scripts/draft/lib/jquery/jquery.min.js"></script>
+    <script src="/scripts/draft/rem.js"></script>
+    <link rel="stylesheet" href="/scripts/draft/lib/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/scripts/draft/lib/bootstrap-datetimepicker/bootstrap-datetimepicker.min.css">
+    <link rel="stylesheet" href="/css/draftStyle/base.css">
+    <link rel="stylesheet" href="/css/cmsStyle/market.css">
+    <link rel="stylesheet" type="text/css" href="/css/style.css"/>
+    <script src="/scripts/jquery.twbsPagination.min.js" type="text/javascript"></script>
+    <script type="text/javascript" src="/scripts/query.js"></script>
+    <script src="/scripts/base/jquery.cookie.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/scripts/common.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>
+    <!-- 主体容器 -->
+    <div class="layout">
+        <!-- 头部区域 -->
+        <div class="header">
+            <h1 class="title">
+                <img src="/img/draft_title.png" alt="">
+            </h1>
+            <form class="form">
+                <div class="group">
+                    <input class="control" type="text" id="KEYWORD" placeholder="请输入关键字">
+                    <button type="button" class="btn" onclick="searchArticleList();">查询信息</button>
+                </div>
+                <div class="group">
+                    <div class="form-input">
+                        <input id="CJSJS" name="CJSJS"  class="form-date control" readonly type="text" placeholder=" 年-月-日">-
+                        <input id="CJSJE" name="CJSJE"  class="form-date control" readonly type="text" placeholder=" 年-月-日">
+                    </div>
+                    <a href="/draft/addArticle" class="btn btn-blue">添加文章</a>
+                </div>
+            </form>
+        </div>
+        <!-- 列表 -->
+        <div class="list" id="articleList">
+            <!-- 单品 -->
+
+
+        </div>
+        <div class="page_box" align="center" >
+            <ul class="sync-pagination pagination-sm" style="text-align: center" id="pagination"></ul>
+        </div>
+
+    </div>
+    <script src="/scripts/draft/lib/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js"></script>
+    <script src="/scripts/draft/lib/bootstrap-datetimepicker/bootstrap-datetimepicker.zh-CN.js"></script>
+    <script src="/scripts/draft/draftList.js"></script>
+</body>
+
+</html>

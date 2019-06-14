@@ -1,0 +1,92 @@
+* {
+    border: none;
+    outline: none;
+    padding: 0;
+    margin: 0;
+}
+
+.nav .search {
+    width: 44px;
+    height: 28px;
+    vertical-align: middle;
+    background: url(../img/search.png) no-repeat center;
+    cursor: pointer;
+}
+
+.nav {
+    background: #fff;
+    height: 57px;
+    line-height:57px;
+}
+
+.nav input {
+    font-size: 16px;
+    width: 85%;
+}
+
+.autoComplete,
+.autoComplete1,
+.autoComplete2,
+.autoComplete3,
+.autoComplete4{
+    display: none;
+    background: #fff;
+    max-height: 350px;
+    overflow: hidden;
+    box-shadow: 1px 2px 1px rgba(0, 0, 0, 0.15);
+}
+
+ .autoComplete .suggestItem,
+ .autoComplete1 .suggestItem,
+ .autoComplete2 .suggestItem,
+ .autoComplete3 .suggestItem,
+ .autoComplete4 .suggestItem{
+    height: 35px;
+    line-height: 35px;
+    cursor: pointer;
+}
+
+.autoComplete .suggestItem:hover,
+.autoComplete1 .suggestItem:hover,
+.autoComplete2 .suggestItem:hover,
+.autoComplete3 .suggestItem:hover,
+.autoComplete4 .suggestItem:hover{
+    background: #e6e6e6;
+}
+
+.autoComplete .suggestItem i,
+.autoComplete1 .suggestItem i,
+.autoComplete2 .suggestItem i,
+.autoComplete3 .suggestItem i,
+.autoComplete4 .suggestItem i
+{
+    padding-left: 39px;
+    font-style: normal;
+    color: #666;
+    position: relative;
+    z-index: 1;
+    padding-top: 1px;
+    background: url(../img/autoText.png) no-repeat 12px;
+    font-size:14px;
+}
+
+.autoComplete .suggestItem em,
+.autoComplete1 .suggestItem em,
+.autoComplete2 .suggestItem em,
+.autoComplete3 .suggestItem em,
+.autoComplete4 .suggestItem em{
+    margin-left: 10px;
+    margin-right: 20px;
+    font-style: normal;
+    color: #999;
+}
+
+.autoComplete .suggestItem.hover,
+.autoComplete1 .suggestItem.hover
+.autoComplete2 .suggestItem.hover
+.autoComplete3 .suggestItem.hover
+.autoComplete4 .suggestItem.hover{
+    background: #e6e6e6;
+}
+
+
